@@ -10,7 +10,8 @@ router.post('/books', async (req, res) => {
     await book.save();
     res.status(201).json(book);
   } catch (err) {
-    res.status(500).json({ error: 'Error adding book' });
+    console.log(err);
+    res.status(400).json({ error: 'Error adding book' });
   }
 });
 
@@ -21,7 +22,7 @@ router.get('/books', async (req, res) => {
     const books = await Book.find();
     res.json(books);
   } catch (err) {
-    res.status(500).json({ error: 'Error retrieving books' });
+    res.status(404).json({ error: 'Error retrieving books' });
   }
 });
 
@@ -34,7 +35,7 @@ router.delete('/books/:id', async (req, res) => {
     }
     res.json(deletedBook);
   } catch (err) {
-    res.status(500).json({ error: 'Error deleting book' });
+    res.status(404).json({ error: 'Error deleting book' });
   }
 });
 
@@ -47,7 +48,7 @@ router.get('/books/filter', async (req, res) => {
       const filteredBooks = await Book.find({ genre });
       res.json(filteredBooks);
     } catch (err) {
-      res.status(500).json({ error: 'Error filtering books' });
+      res.status(404).json({ error: 'Error filtering books' });
     }
   });
 
@@ -60,7 +61,7 @@ router.get('/books/sort', async (req, res) => {
       const sortedBooks = await Book.find().sort({ price: sortOrder });
       res.json(sortedBooks);
     } catch (err) {
-      res.status(500).json({ error: 'Error sorting books' });
+      res.status(404).json({ error: 'Error sorting books' });
     }
   });
 
